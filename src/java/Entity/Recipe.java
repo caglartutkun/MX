@@ -13,37 +13,38 @@ import com.google.gson.annotations.SerializedName;
  * @author Caglar
  */
 public class Recipe {
+
     @SerializedName("head")
-@Expose
-private Head head;
-@SerializedName("ingredients")
-@Expose
-private Ingredients ingredients;
-@SerializedName("directions")
-@Expose
-private Directions directions;
+    @Expose
+    private Head head;
+    @SerializedName("ingredients")
+    @Expose
+    private Ingredients ingredients;
+    @SerializedName("directions")
+    @Expose
+    private Directions directions;
 
-public Head getHead() {
-return head;
-}
+    public Head getHead() {
+        return head;
+    }
 
-public void setHead(Head head) {
-this.head = head;
-}
+    public void setHead(Head head) {
+        this.head = head;
+    }
 
-public Ingredients getIngredients() {
-return ingredients;
-}
+    public Ingredients getIngredients() {
+        return ingredients;
+    }
 
-public void setIngredients(Ingredients ingredients) {
-this.ingredients = ingredients;
-}
+    public void setIngredients(Ingredients ingredients) {
+        this.ingredients = ingredients;
+    }
 
-public Directions getDirections() {
-return directions;
-}
+    public Directions getDirections() {
+        return directions;
+    }
 
-public void setDirections(Directions directions) {
-this.directions = directions;
-}
+    public void setDirections(Directions directions) {
+        this.directions = directions;
+    }
 }

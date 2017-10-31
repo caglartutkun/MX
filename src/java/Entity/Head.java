@@ -13,37 +13,38 @@ import com.google.gson.annotations.SerializedName;
  * @author Caglar
  */
 public class Head {
-   @SerializedName("title")
-@Expose
-private String title;
-@SerializedName("categories")
-@Expose
-private Categories categories;
-@SerializedName("yield")
-@Expose
-private String yield;
 
-public String getTitle() {
-return title;
-}
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("categories")
+    @Expose
+    private Categories categories;
+    @SerializedName("yield")
+    @Expose
+    private String yield;
 
-public void setTitle(String title) {
-this.title = title;
-}
+    public String getTitle() {
+        return title;
+    }
 
-public Categories getCategories() {
-return categories;
-}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-public void setCategories(Categories categories) {
-this.categories = categories;
-}
+    public Categories getCategories() {
+        return categories;
+    }
 
-public String getYield() {
-return yield;
-}
+    public void setCategories(Categories categories) {
+        this.categories = categories;
+    }
 
-public void setYield(String yield) {
-this.yield = yield;
-} 
+    public String getYield() {
+        return yield;
+    }
+
+    public void setYield(String yield) {
+        this.yield = yield;
+    }
 }

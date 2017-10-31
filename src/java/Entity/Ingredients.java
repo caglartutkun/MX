@@ -15,27 +15,28 @@ import java.util.ArrayList;
  * @author Caglar
  */
 public class Ingredients {
+
     @SerializedName("ing-div")
-@Expose
-private List<IngDiv> ingDiv = new ArrayList<IngDiv>();
+    @Expose
+    private List<IngDiv> ingDiv = new ArrayList<IngDiv>();
 
-@SerializedName("ing")
-@Expose
-private List<Ing> ing = new ArrayList<Ing>();
+    @SerializedName("ing")
+    @Expose
+    private List<Ing> ing = new ArrayList<Ing>();
 
-public List<Ing> getIng() {
-return ing;
-}
+    public List<Ing> getIng() {
+        return ing;
+    }
 
-public void setIng(List<Ing> ing) {
-this.ing = ing;
-}
+    public void setIng(List<Ing> ing) {
+        this.ing = ing;
+    }
 
-public List<IngDiv> getIngDiv() {
-return ingDiv;
-}
+    public List<IngDiv> getIngDiv() {
+        return ingDiv;
+    }
 
-public void setIngDiv(List<IngDiv> ingDiv) {
-this.ingDiv = ingDiv;
-}
+    public void setIngDiv(List<IngDiv> ingDiv) {
+        this.ingDiv = ingDiv;
+    }
 }

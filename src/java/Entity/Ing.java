@@ -13,26 +13,27 @@ import com.google.gson.annotations.SerializedName;
  * @author Caglar
  */
 public class Ing {
+
     @SerializedName("amt")
-@Expose
-private Amt amt;
-@SerializedName("item")
-@Expose
-private String item;
+    @Expose
+    private Amt amt;
+    @SerializedName("item")
+    @Expose
+    private String item;
 
-public Amt getAmt() {
-return amt;
-}
+    public Amt getAmt() {
+        return amt;
+    }
 
-public void setAmt(Amt amt) {
-this.amt = amt;
-}
+    public void setAmt(Amt amt) {
+        this.amt = amt;
+    }
 
-public String getItem() {
-return item;
-}
+    public String getItem() {
+        return item;
+    }
 
-public void setItem(String item) {
-this.item = item;
-}
+    public void setItem(String item) {
+        this.item = item;
+    }
 }

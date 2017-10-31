@@ -15,26 +15,27 @@ import java.util.ArrayList;
  * @author Caglar
  */
 public class IngDiv {
+
     @SerializedName("title")
-@Expose
-private String title;
-@SerializedName("ing")
-@Expose
-private List<Ing> ing = new ArrayList<Ing>();
+    @Expose
+    private String title;
+    @SerializedName("ing")
+    @Expose
+    private List<Ing> ing = new ArrayList<Ing>();
 
-public String getTitle() {
-return title;
-}
+    public String getTitle() {
+        return title;
+    }
 
-public void setTitle(String title) {
-this.title = title;
-}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-public List<Ing> getIng() {
-return ing;
-}
+    public List<Ing> getIng() {
+        return ing;
+    }
 
-public void setIng(List<Ing> ing) {
-this.ing = ing;
-}
+    public void setIng(List<Ing> ing) {
+        this.ing = ing;
+    }
 }

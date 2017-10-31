@@ -13,15 +13,16 @@ import com.google.gson.annotations.SerializedName;
  * @author Caglar
  */
 public class Directions {
+
     @SerializedName("step")
-@Expose
-private String step;
+    @Expose
+    private String step;
 
-public String getStep() {
-return step;
-}
+    public String getStep() {
+        return step;
+    }
 
-public void setStep(String step) {
-this.step = step;
-}
+    public void setStep(String step) {
+        this.step = step;
+    }
 }
