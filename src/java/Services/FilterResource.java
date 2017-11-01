@@ -5,6 +5,13 @@
  */
 package Services;
 
+import AdapterServices.execSQL;
+import Entity.Categories;
+import Entity.Head;
+import Entity.HeadJson;
+import Utils.filterRecipe;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -24,7 +31,8 @@ public class FilterResource {
 
     @Context
     private UriInfo context;
-
+    private filterRecipe a = new filterRecipe();
+    private execSQL ex = new execSQL();
     /**
      * Creates a new instance of FilterResource
      */
@@ -36,10 +44,10 @@ public class FilterResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces("text/html")
     public String getJson() {
         //TODO return proper representation object
-        throw new UnsupportedOperationException();
+        return "Example: {\"title\": \"Amaretto Cake\", \"categories\": { \"cat\": [ \"Liquor\", \"Cakes\", \"Cake mixes\" ] }, \"yield\": \"1\" }";
     }
 
     /**
@@ -48,6 +56,8 @@ public class FilterResource {
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String putJson(String content) {
+        return a.getResults(content);
     }
 }

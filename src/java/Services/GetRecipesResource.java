@@ -5,6 +5,10 @@
  */
 package Services;
 
+import Entity.HeadJson;
+import Utils.getRecipe;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -24,7 +28,7 @@ public class GetRecipesResource {
 
     @Context
     private UriInfo context;
-
+    private getRecipe a = new getRecipe();
     /**
      * Creates a new instance of GetRecipesResource
      */
@@ -36,18 +40,23 @@ public class GetRecipesResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces("text/html")
     public String getJson() {
         //TODO return proper representation object
-        throw new UnsupportedOperationException();
+        //return "Example: {\"id\":\"28\", \"title\": \"Amaretto Cake\", \"categories\": { \"cat\": [ \"Liquor\", \"Cakes\", \"Cake mixes\" ] }, \"yield\": \"1\" }";
+        return "Example: {\"id\":\"28\"}";
     }
 
     /**
      * PUT method for updating or creating an instance of GetRecipesResource
      * @param content representation for the resource
+     * @return 
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String putJson(String content) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return a.getRecipeJson(gson.fromJson(content, HeadJson.class).getId());
     }
 }

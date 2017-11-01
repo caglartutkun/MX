@@ -5,6 +5,8 @@
 --%>
 <%@page import="Utils.allRecipe"%>
 <%@page import="Utils.addRecipe" %>
+<%@page import="Utils.getRecipe" %>
+<%@page import="Utils.filterRecipe" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,12 +20,13 @@
         <%
             //addRecipe a = new addRecipe();
             //out.print("Result: "+a.setAdd("Nothing!"));
-            
-            allRecipe b = new allRecipe();
-            out.print("Result: "+b.getAllJson());
-            
+
+            //allRecipe b = new allRecipe();
+            //out.print("Result: "+b.getAllJson());
+            getRecipe c = new getRecipe();
+            out.print("Result: " + c.getRecipeJson(27));
 
         %>
     </body>
-    
+
 </html>

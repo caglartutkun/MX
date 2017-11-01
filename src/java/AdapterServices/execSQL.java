@@ -7,6 +7,7 @@ package AdapterServices;
 
 import Entity.*;
 import java.sql.*;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -19,7 +20,6 @@ public class execSQL {
     private Connection conn = mc.ConnectDB();
     private PreparedStatement pst = null;
     private ResultSet rs = null;
-
 
     public int dbRecipes(String Title, int IngredientID, int DirectionID, String Yield) {
         String sql = "insert into Recipes (Title, IngredientID, DirectionID, Yield) VALUES (?,?,?,? )";
@@ -182,51 +182,142 @@ public class execSQL {
         }
         return rs;
     }
-    
-    public ResultSet getHeadAll(){
-        String sql="select r.ID as 'id', r.Title as 'title',(select GROUP_CONCAT(rr.Category SEPARATOR ',') from recipecategories rr where rr.RecipeID=r.ID) as 'categories'  ,r.Yield as 'yield' from recipes r ";
+
+    public ResultSet getHeadAll() {
+        String sql = "select r.ID as 'id', r.Title as 'title',(select GROUP_CONCAT(rr.Category SEPARATOR ',') from recipecategories rr where rr.RecipeID=r.ID) as 'categories'  ,r.Yield as 'yield' from recipes r ";
         return execRS(sql);
     }
-    
-    public ResultSet getDirections(int RecipeID){
+
+    public ResultSet getDirections(int RecipeID) {
         try {
-            String sql="SELECT d.Direction as 'direction' FROM Directions d, recipes r where r.DirectionID=d.DirectionID and r.ID=?";
+            String sql = "SELECT d.Direction as 'direction' FROM Directions d, recipes r where r.DirectionID=d.DirectionID and r.ID=?";
             pst = conn.prepareStatement(sql);
             pst.setInt(1, RecipeID);
-            rs=pst.executeQuery();
+            rs = pst.executeQuery();
             return rs;
         } catch (Exception e) {
-        return null;
+            return null;
         }
     }
-    
-    public ResultSet getRecipeIngredients(int RecipeID){
-        String sql="SELECT ingredientid,title from recipeingredients where recipeid=? ";
+
+    public ResultSet getRecipeIngredients(int RecipeID) {
+        String sql = "SELECT ingredientid,title from recipeingredients where recipeid=? ";
         try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1, RecipeID);
-            rs=pst.executeQuery();
+            rs = pst.executeQuery();
         } catch (SQLException e) {
             return null;
         }
         return rs;
     }
 
-    public ResultSet getIngredients(int IngredientID){
-        String sql="SELECT quantity, unit, item FROM Ingredients where ingredientid=?";
+    public ResultSet getIngredients(int IngredientID) {
+        String sql = "SELECT quantity, unit, item FROM Ingredients where ingredientid=?";
         try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1, IngredientID);
-            rs=pst.executeQuery();
+            rs = pst.executeQuery();
         } catch (SQLException e) {
             return null;
         }
         return rs;
     }
 
-          
+    public ResultSet getHeadFiltered_old(String title, Categories category, String yield) {
+        String sql = "select r.ID as 'id', r.Title as 'title',(select GROUP_CONCAT(rr.Category SEPARATOR ',') from recipecategories rr where rr.RecipeID=r.ID) as 'categories',r.Yield as 'yield' from recipes r where lower(r.title) like ? and r.yield like ? ;";
+        int curr = 1;
+        try {
+            pst = conn.prepareStatement(sql);
+            if (title == null || title == "") {
+                pst.setString(curr, "%");
+            } else {
+                pst.setString(curr, "%" + title.toLowerCase() + "%");
+            }
+            curr++;
+            if (yield == null || yield == "") {
+                pst.setString(curr, "%");
+            } else {
+                pst.setString(curr, "%" + yield + "%");
+            }
+            rs = pst.executeQuery();
+            return rs;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    public ResultSet getHeadFiltered(String title, Categories category, String yield) {
+        String sql = "select r.ID as 'id', r.Title as 'title',(select GROUP_CONCAT(rr.Category SEPARATOR ',') from recipecategories rr where rr.RecipeID=r.ID) as 'categories',r.Yield as 'yield' from recipes r where lower(r.title) like ? and r.yield like ? ";
+        int cur = 1, catSize = 0;
+        String tmp = "", sep = "";
+        if (category != null) {
+            catSize = category.getCat().size();
+        }
+        if (catSize > 0) {
+
+            for (int i = 0; i < catSize; i++) {
+                tmp += sep + "?";
+                sep = ",";
+            }
+            sql = "select r.ID as 'id', r.Title as 'title',(select GROUP_CONCAT(rr.Category SEPARATOR ',') from recipecategories rr where rr.RecipeID=r.ID) as 'categories',r.Yield as 'yield' from recipes r where r.ID in (select distinct RecipeID from recipecategories where LOWER(Category) in (" + tmp + ")) and (lower(r.title) like ? and r.yield like ? );";
+
+        }
+
+        try {
+            pst = conn.prepareStatement(sql);
+            if (title == null || title == "") {
+                pst.setString(catSize+cur, "%");
+            } else {
+                pst.setString(catSize+cur, "%" + title.toLowerCase() + "%");
+            }
+            cur++;
+            if (yield == null || yield == "") {
+                pst.setString(catSize+cur, "%");
+            } else {
+                pst.setString(catSize+cur, "%" + yield + "%");
+            }
+            cur=1;
+            if (catSize > 0) {
+                if (title == null && yield == null) {
+                    sql = "select r.ID as 'id', r.Title as 'title',(select GROUP_CONCAT(rr.Category SEPARATOR ',') from recipecategories rr where rr.RecipeID=r.ID) as 'categories',r.Yield as 'yield' from recipes r where r.ID in (select distinct RecipeID from recipecategories where LOWER(Category) in (" + tmp + ")) ;";
+                    pst = conn.prepareStatement(sql);
+                }
+                for (String cat : category.getCat()) {
+                    pst.setString(cur, cat.toLowerCase());
+                    cur++;
+                }
+            }
+            rs = pst.executeQuery();
+            return rs;
+        } catch (SQLException e) {
+            return null;
+        }
+
+    }
+
+    public ResultSet getRecipe(int RecipeID) {
+        try {
+            String sql = "?";
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, RecipeID);
+            rs = pst.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public ResultSet getHeadbyID(int RecipeID) {
+        try {
+            String sql = "select r.ID as 'id', r.Title as 'title',(select GROUP_CONCAT(rr.Category SEPARATOR ',') from recipecategories rr where rr.RecipeID=r.ID) as 'categories'  ,r.Yield as 'yield' from recipes r where r.ID=?";
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, RecipeID);
+            rs = pst.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 }
-
-
-
