@@ -213,7 +213,7 @@ public class execSQL {
     }
 
     public ResultSet getIngredients(int IngredientID){
-        String sql="SELECT quantity, unit, item FROM Ingredients where ingredientid=?;";
+        String sql="SELECT quantity, unit, item FROM Ingredients where ingredientid=?";
         try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1, IngredientID);

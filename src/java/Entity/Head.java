@@ -12,11 +12,12 @@ import com.google.gson.annotations.SerializedName;
  *
  * @author Caglar
  */
+
 public class Head {
 
     @SerializedName("id")
     @Expose
-    private int id;
+    private transient int id;
     @SerializedName("title")
     @Expose
     private String title;

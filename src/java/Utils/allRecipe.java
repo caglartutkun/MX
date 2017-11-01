@@ -47,7 +47,7 @@ public class allRecipe {
 
     public Directions getDirectionsClassDB(int RecipeID) {
         Directions d = new Directions();
-        try {    
+        try {
             execSQL e = new execSQL();
             rs = e.getDirections(RecipeID);
             while (rs.next()) {
@@ -67,22 +67,25 @@ public class allRecipe {
             List<IngDiv> ingd = new ArrayList<IngDiv>();
             while (rs1.next()) {
                 IngDiv id = new IngDiv();
+                int IngredientID = rs1.getInt("ingredientid");
                 id.setTitle(rs1.getString("title"));
-                id.setIngredientId(rs1.getInt("ingredientid"));
-                        ResultSet rs2 = e.getIngredients(rs1.getInt("ingredientid"));
-                        List<Ing> iList = new ArrayList<Ing>();
-                        try {
-                            while (rs2.next()) {
-                                Amt amt = new Amt();
-                                amt.setQty(rs2.getString("quantity"));
-                                amt.setUnit(rs2.getString("units"));
+                id.setIngredientId(IngredientID);
+                
+                ResultSet rs2 = e.getIngredients(IngredientID);
+                List<Ing> iList = new ArrayList<Ing>();
+                try {
+                    while (rs2.next()) {
+                        Amt amt = new Amt();
+                        amt.setQty(rs2.getString("quantity"));
+                        amt.setUnit(rs2.getString("unit"));
 
-                                Ing i = new Ing();
-                                i.setAmt(amt);
-                                i.setItem(rs2.getString("item"));
-                                iList.add(i);
-                            }
-                        } catch (Exception e2) { }
+                        Ing i = new Ing();
+                        i.setAmt(amt);
+                        i.setItem(rs2.getString("item"));
+                        iList.add(i);
+                    }
+                } catch (Exception e2) {
+                }
                 id.setIng(iList);
                 ingd.add(id);
             }
@@ -115,11 +118,15 @@ public class allRecipe {
         List<Recipe> r = new ArrayList<Recipe>();
         for (int i = 0; i < hl.size(); i++) {
             Recipe rec = new Recipe();
-            rec.setHead(hl.get(i));
+            Head h = new Head();
+            h.setCategories(hl.get(i).getCategories());
+            h.setTitle(hl.get(i).getTitle());
+            h.setYield(hl.get(i).getYield());
+            rec.setHead(h);
             rec.setDirections(getDirectionsClassDB(hl.get(i).getId()));
             rec.setIngredients(getIngredientsClassDB(hl.get(i).getId()));
             r.add(rec);
-            a.setResults(i+1);
+            a.setResults(i + 1);
         }
         a.setRecipes(r);
         a.setTotal(hl.size());
@@ -128,10 +135,11 @@ public class allRecipe {
 
     public String getAllJson() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try{
+        try {
             All a = getAll();
-            return gson.toJson(a,All.class);
-        } catch (Exception e)
-        {return e.toString();}
+            return gson.toJson(a, All.class);
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 }

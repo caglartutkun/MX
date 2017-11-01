@@ -18,7 +18,7 @@ public class IngDiv {
 
     @SerializedName("ingredientid")
     @Expose
-    private int ingredientid;
+    private transient int ingredientid;
     @SerializedName("title")
     @Expose
     private String title;
