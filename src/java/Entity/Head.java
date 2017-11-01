@@ -14,6 +14,9 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Head {
 
+    @SerializedName("id")
+    @Expose
+    private int id;
     @SerializedName("title")
     @Expose
     private String title;
@@ -24,6 +27,15 @@ public class Head {
     @Expose
     private String yield;
 
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+        
     public String getTitle() {
         return title;
     }

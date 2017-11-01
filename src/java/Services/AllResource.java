@@ -5,6 +5,7 @@
  */
 package Services;
 
+import Utils.allRecipe;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -38,8 +39,8 @@ public class AllResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
+        allRecipe a = new allRecipe();
+        return a.getHeadJson();
     }
 
     /**

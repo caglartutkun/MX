@@ -13,6 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
+import Utils.*;
 
 /**
  * REST Web Service
@@ -48,6 +49,8 @@ public class AddResource {
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    public String putJson(String content) {
+        addRecipe a = new addRecipe();
+        return "Result: "+a.setAdd(content);
     }
 }
