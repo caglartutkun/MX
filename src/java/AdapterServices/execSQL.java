@@ -16,7 +16,7 @@ import java.util.List;
 public class execSQL {
 
     private final MySQLConnection mc = new MySQLConnection();
-    private Connection conn = null;
+    private Connection conn = mc.ConnectDB();
     private PreparedStatement pst = null;
     private ResultSet rs = null;
 
@@ -189,7 +189,19 @@ public class execSQL {
     }
     
     public ResultSet getDirections(int RecipeID){
-        String sql="SELECT Direction FROM Directions d, recipes r where r.DirectionID=d.DirectionID and r.ID=?";
+        try {
+            String sql="SELECT d.Direction as 'direction' FROM Directions d, recipes r where r.DirectionID=d.DirectionID and r.ID=?";
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, RecipeID);
+            rs=pst.executeQuery();
+            return rs;
+        } catch (Exception e) {
+        return null;
+        }
+    }
+    
+    public ResultSet getRecipeIngredients(int RecipeID){
+        String sql="SELECT ingredientid,title from recipeingredients where recipeid=? ";
         try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1, RecipeID);
@@ -199,12 +211,12 @@ public class execSQL {
         }
         return rs;
     }
-    
-    public ResultSet getIngredients(int RecipeID){
-        String sql="SELECT Direction FROM Directions d, recipes r where r.DirectionID=d.DirectionID and r.ID=?";
+
+    public ResultSet getIngredients(int IngredientID){
+        String sql="SELECT quantity, unit, item FROM Ingredients where ingredientid=?;";
         try {
             pst = conn.prepareStatement(sql);
-            pst.setInt(1, RecipeID);
+            pst.setInt(1, IngredientID);
             rs=pst.executeQuery();
         } catch (SQLException e) {
             return null;

@@ -5,7 +5,9 @@
  */
 package Services;
 
+import Entity.All;
 import Utils.allRecipe;
+import com.google.gson.Gson;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -40,7 +42,7 @@ public class AllResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson() {
         allRecipe a = new allRecipe();
-        return a.getHeadJson();
+        return a.getAllJson();
     }
 
     /**

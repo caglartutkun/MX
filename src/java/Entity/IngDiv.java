@@ -16,6 +16,9 @@ import java.util.ArrayList;
  */
 public class IngDiv {
 
+    @SerializedName("ingredientid")
+    @Expose
+    private int ingredientid;
     @SerializedName("title")
     @Expose
     private String title;
@@ -23,6 +26,14 @@ public class IngDiv {
     @Expose
     private List<Ing> ing = new ArrayList<Ing>();
 
+    public int getIngredientId() {
+        return ingredientid;
+    }
+
+    public void setIngredientId(int ingredientid) {
+        this.ingredientid = ingredientid;
+    }
+    
     public String getTitle() {
         return title;
     }

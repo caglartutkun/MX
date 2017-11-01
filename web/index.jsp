@@ -20,7 +20,7 @@
             //out.print("Result: "+a.setAdd("Nothing!"));
             
             allRecipe b = new allRecipe();
-            out.print("Result: "+b.getHeadJson());
+            out.print("Result: "+b.getAllJson());
             
 
         %>
