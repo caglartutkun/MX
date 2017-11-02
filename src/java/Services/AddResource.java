@@ -20,7 +20,7 @@ import Utils.*;
  *
  * @author Caglar
  */
-@Path("add")
+@Path("services/recipe/add")
 public class AddResource {
 
     @Context
@@ -33,23 +33,12 @@ public class AddResource {
     }
 
     /**
-     * Retrieves representation of an instance of Services.AddResource
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
-
-    /**
      * PUT method for updating or creating an instance of AddResource
      * @param content representation for the resource
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public String putJson(String content) {
+    public String add(String content) {
         addRecipe a = new addRecipe();
         return "Result: "+a.setAdd(content);
     }

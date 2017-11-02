@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Caglar
  */
-@Path("all")
+@Path("services/recipe/all")
 public class AllResource {
 
     @Context
@@ -40,17 +40,9 @@ public class AllResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
+    public String all() {
         allRecipe a = new allRecipe();
         return a.getAllJson();
     }
 
-    /**
-     * PUT method for updating or creating an instance of AllResource
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
-    }
 }

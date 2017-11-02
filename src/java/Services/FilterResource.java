@@ -26,7 +26,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Caglar
  */
-@Path("filter")
+@Path("services/recipe/filter")
 public class FilterResource {
 
     @Context
@@ -43,21 +43,12 @@ public class FilterResource {
      * Retrieves representation of an instance of Services.FilterResource
      * @return an instance of java.lang.String
      */
-    @GET
-    @Produces("text/html")
-    public String getJson() {
-        //TODO return proper representation object
-        return "Example: {\"title\": \"Amaretto Cake\", \"categories\": { \"cat\": [ \"Liquor\", \"Cakes\", \"Cake mixes\" ] }, \"yield\": \"1\" }";
-    }
-
-    /**
-     * PUT method for updating or creating an instance of FilterResource
-     * @param content representation for the resource
-     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String putJson(String content) {
+    public String filter(String content) {
         return a.getResults(content);
+        //TODO return proper representation object
     }
+
 }

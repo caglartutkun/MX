@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Caglar
  */
-@Path("getRecipes")
+@Path("services/recipe/get")
 public class GetRecipesResource {
 
     @Context
@@ -39,23 +39,11 @@ public class GetRecipesResource {
      * Retrieves representation of an instance of Services.GetRecipesResource
      * @return an instance of java.lang.String
      */
-    @GET
-    @Produces("text/html")
-    public String getJson() {
-        //TODO return proper representation object
-        //return "Example: {\"id\":\"28\", \"title\": \"Amaretto Cake\", \"categories\": { \"cat\": [ \"Liquor\", \"Cakes\", \"Cake mixes\" ] }, \"yield\": \"1\" }";
-        return "Example: {\"id\":\"28\"}";
-    }
 
-    /**
-     * PUT method for updating or creating an instance of GetRecipesResource
-     * @param content representation for the resource
-     * @return 
-     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String putJson(String content) {
+    public String get(String content) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return a.getRecipeJson(gson.fromJson(content, HeadJson.class).getId());
     }
