@@ -33,7 +33,7 @@ public class getCategories {
         }
     }
 
-    private CategoriesJson getCategories() {
+    public CategoriesJson getCategories() {
         try{
             rs=ex.getCategories();
             List<String> cat = new ArrayList<String>();

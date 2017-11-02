@@ -91,4 +91,58 @@ public class getRecipe {
         }
     }
    
+    public String getRecipeHTML(int RecipeID)
+    {
+        All a = getRecipe(RecipeID);
+        List<Recipe> rec=a.getRecipes();
+        String body="<html><body>";
+        for (int i=0;i<rec.size();i++)
+        {
+            
+            Recipe r = rec.get(i);
+            
+                Head h = r.getHead();
+
+        body+="Title : "+h.getTitle()+" <br>";
+                Categories cc = h.getCategories();
+                List<String> catList=cc.getCat();
+                String tmp="",sep="";
+                for (int j=0;j<catList.size();j++){
+                    tmp+=sep+catList.get(j);
+                    sep=",";
+                }
+        body+="Categories : "+tmp+" <br>";
+                String yield = h.getYield();
+        body+="Yield : "+yield+" <br>";            
+                Ingredients ing =r.getIngredients();
+                List<IngDiv> ingDiv = new ArrayList<IngDiv>();
+                ingDiv=ing.getIngDiv();
+        body+="Ingredients: <br>";
+        String table="<table>";
+                for (int j=0;j<ingDiv.size();j++)
+                {   
+                    String title = ingDiv.get(j).getTitle();
+                    table+="<tr><td colspan=3>"+title+"</td></tr>";
+                    table+="<tr><td>Quantity</td><td>Unit</td><td>Item</td></tr>";
+                    List<Ing> ingList = ingDiv.get(j).getIng();
+                    for (int k=0;k<ingList.size();k++){
+                        
+                        Amt amt = ingList.get(k).getAmt();
+                        String qty=amt.getQty();
+                        String unit=amt.getUnit();
+                        String item = ingList.get(k).getItem();
+                        table+="<tr><td>"+qty+"</td><td>"+unit+"</td><td>"+item+"</td></tr>";
+                    }
+                }
+        table+="</table>";    
+        body+=table;
+        body+="Directions: <br>";
+                Directions d = r.getDirections();
+                String directions = d.getStep();
+        body+=directions;        
+        }
+        
+        return body+"</body></html>";
+        
+    }
 }
