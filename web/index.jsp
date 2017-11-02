@@ -25,7 +25,7 @@
         <table style="width:100%;text-align: left">
 
             <tr> 
-                <td colspan="2"><h1>Mendix!</h1></td>
+                <td colspan="2"><h1>Recipe App!</h1></td>
             </tr>
             <td style="border-width:1px; border-color:Black ; border-style :groove ; width: 20%;vertical-align: top">
                 <b>Categories</b><br>

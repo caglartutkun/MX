@@ -13,14 +13,21 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Mendix Recipe Service!</h1>
+        <h1>Recipe</h1>
         <%
             String RecipeID=request.getParameter("RecipeID");
     if (RecipeID == null) {
-        out.println("Sorry Mate!");
+        out.println("<html><body>Sorry Mate no RecipeID!</body></html>");
     } else {
         getRecipe a = new getRecipe();
-        out.print(a.getRecipeHTML(Integer.valueOf(RecipeID)));
+        int rid;
+        try{
+            rid=Integer.valueOf(RecipeID);
+            out.print(a.getRecipeHTML(rid));
+        }catch (Exception e)
+        {
+            out.println("<html><body>Invalid RecipeID:"+RecipeID+"<br>Err:"+e.toString()+"</body></html>");
+        }
     }
 %>
         
