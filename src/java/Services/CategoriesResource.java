@@ -20,7 +20,8 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Caglar
  */
-@Path("categories")
+@Path("services/recipe/filter/categories")
+
 public class CategoriesResource {
 
     @Context
