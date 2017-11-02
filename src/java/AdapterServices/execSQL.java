@@ -149,7 +149,7 @@ public class execSQL {
     public int getIngredientID() {/**/
         int id = 100;
         try {
-            rs = execRS("select case count(*) when 0 then 100 else MAX(IngredientID)+1 end as ID from recipes");
+            rs = execRS("select case count(*) when 0 then 100 else MAX(IngredientID)+1 end as ID from ingredients");
             while (rs.next()) {
                 id = rs.getInt("ID");
             }
@@ -296,18 +296,6 @@ public class execSQL {
 
     }
 
-    public ResultSet getRecipe(int RecipeID) {
-        try {
-            String sql = "?";
-            pst = conn.prepareStatement(sql);
-            pst.setInt(1, RecipeID);
-            rs = pst.executeQuery();
-            return rs;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     public ResultSet getHeadbyID(int RecipeID) {
         try {
             String sql = "select r.ID as 'id', r.Title as 'title',(select GROUP_CONCAT(rr.Category SEPARATOR ',') from recipecategories rr where rr.RecipeID=r.ID) as 'categories'  ,r.Yield as 'yield' from recipes r where r.ID=?";
@@ -319,5 +307,17 @@ public class execSQL {
             return null;
         }
     }
+    
+    public ResultSet getCategories(){
+        try {
+            String sql = "select title from categories";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+            
 
 }

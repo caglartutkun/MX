@@ -5,13 +5,7 @@
  */
 package Services;
 
-import AdapterServices.execSQL;
-import Entity.Categories;
-import Entity.Head;
-import Entity.HeadJson;
-import Utils.filterRecipe;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import Utils.getCategories;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -26,28 +20,27 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Caglar
  */
-@Path("services/recipe/filter")
-public class FilterResource {
+@Path("categories")
+public class CategoriesResource {
 
     @Context
     private UriInfo context;
-    private filterRecipe a = new filterRecipe();
-    private execSQL ex = new execSQL();
+
     /**
-     * Creates a new instance of FilterResource
+     * Creates a new instance of CategoriesResource
      */
-    public FilterResource() {
+    public CategoriesResource() {
     }
 
     /**
-     * Retrieves representation of an instance of Services.FilterResource
+     * Retrieves representation of an instance of Services.CategoriesResource
      * @return an instance of java.lang.String
      */
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String filter(String content) {
-        return a.getResults(content);
+    public String categories() {
+        getCategories a = new getCategories();
+        return a.getAllCategoriesJson();
     }
 
 }

@@ -35,27 +35,30 @@ public class addRecipe {
                 execSQL a = new execSQL();
                 Add add = getAddClass(str);
                 Directions directions = add.getDirections();
+                
                 Head head = add.getHead();
                 Categories categories = head.getCategories();
+                
                 Ingredients ingredients = add.getIngredients();
+                
                 List<IngDiv> ingdiv = ingredients.getIngDiv();
 
                 int IngredientID = a.getIngredientID();
                 int DirectionID = a.getDirectionID();
 
                 int RecipeID = a.dbRecipes(head.getTitle(), IngredientID, DirectionID, head.getYield());
-
-                for (int i = 0; i < ingdiv.size(); i++) {
-                    List<Ing> ing = ingdiv.get(i).getIng();
-                    for (Ing ing1 : ing) {
-                        a.dbItems(ing1.getItem());
-                        a.dbUnits(ing1.getAmt().getUnit());
-                        a.dbIngredients(IngredientID, ing1.getAmt().getQty(), ing1.getAmt().getUnit(), ing1.getItem());
+                List<Ing> IngList = new ArrayList<Ing>();
+                int tmpIngredientID=IngredientID;
+                for (int i=0;i<ingdiv.size();i++){
+                    IngList=ingdiv.get(i).getIng();
+                    for (int j=0;j<IngList.size();j++){
+                        a.dbItems(IngList.get(j).getItem());
+                        a.dbUnits(IngList.get(j).getAmt().getUnit());
+                        a.dbIngredients(IngredientID, IngList.get(j).getAmt().getQty(), IngList.get(j).getAmt().getUnit(), IngList.get(j).getItem());
                     }
                     a.dbRecipeIngredients(RecipeID, IngredientID, ingdiv.get(i).getTitle());
                     IngredientID++;
                 }
-
                 a.dbDirections(DirectionID, 0, directions.getStep());
 
                 for (int i = 0; i < categories.getCat().size(); i++) {

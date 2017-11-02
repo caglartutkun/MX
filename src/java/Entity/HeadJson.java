@@ -17,7 +17,7 @@ public class HeadJson {
 
     @SerializedName("id")
     @Expose
-    private int id;
+    private transient int id;
     @SerializedName("title")
     @Expose
     private String title;

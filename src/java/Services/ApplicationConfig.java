@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(Services.AddResource.class);
         resources.add(Services.AllResource.class);
+        resources.add(Services.CategoriesResource.class);
         resources.add(Services.FilterResource.class);
         resources.add(Services.GetRecipesResource.class);
     }

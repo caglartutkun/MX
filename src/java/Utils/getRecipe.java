@@ -59,35 +59,6 @@ public class getRecipe {
         }
     }
 
-    public All getFilteredRecipes(String title,Categories category,  String yield) {
-        All all = new All();
-        List<Recipe> RecipeList = new ArrayList<>();
-        List<Head> HeadList = getFilteredHead(title, category, yield);
-        for (int i = 0; i < HeadList.size(); i++) {
-            try {
-                rs = ex.getRecipe(HeadList.get(i).getId());
-                while (rs.next()) {
-
-                    Head head = new Head();
-                    head.setId(HeadList.get(i).getId());
-                    head.setCategories(HeadList.get(i).getCategories());
-                    head.setTitle(HeadList.get(i).getTitle());
-                    head.setYield(HeadList.get(i).getYield());
-                    Recipe recipe = new Recipe();
-                    recipe.setHead(head);
-                    recipe.setDirections(ar.getDirectionsClassDB(HeadList.get(i).getId()));
-                    recipe.setIngredients(ar.getIngredientsClassDB(HeadList.get(i).getId()));
-                    RecipeList.add(recipe);
-                }
-                all.setResults(HeadList.size());
-                all.setRecipes(RecipeList);
-                all.setTotal(HeadList.size());
-            } catch (SQLException e) {
-            }
-        }
-        return all;
-    }
-
     public All getRecipe(int RecipeID) {
         All all = new All();
         List<Recipe> RecipeList = new ArrayList<>();
